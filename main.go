@@ -57,7 +57,7 @@ func main() {
 		cmd.Dir = fmt.Sprintf("%s%s%s", path, "/", f.Name())
 		porcelainOutput, _ := cmd.Output()
 
-		if len(argsWithoutProg) > 1 && (argsWithoutProg[1] != "p" && argsWithoutProg[1] != "pull") {
+		if len(argsWithoutProg) == 1 || len(argsWithoutProg) > 1 && (argsWithoutProg[1] != "p" && argsWithoutProg[1] != "pull") {
 			if len(porcelainOutput) == 0 {
 				fmt.Println(green("  "), blue(f.Name()))
 			} else {
