@@ -11,7 +11,6 @@ import (
 	File "ckg/utils"
 
 	"github.com/fatih/color"
-	"github.com/gosuri/uiprogress"
 )
 
 var wg sync.WaitGroup
@@ -58,6 +57,14 @@ func main() {
 		cmd.Dir = fmt.Sprintf("%s%s%s", path, "/", f.Name())
 		porcelainOutput, _ := cmd.Output()
 
+		if len(argsWithoutProg) > 1 && (argsWithoutProg[1] != "p" && argsWithoutProg[1] != "pull") {
+			if len(porcelainOutput) == 0 {
+				fmt.Println(green("  "), blue(f.Name()))
+			} else {
+				fmt.Println(red("  "), yellow(f.Name()))
+			}
+		}
+
 		if len(argsWithoutProg) > 1 &&
 			(argsWithoutProg[1] == "d" || argsWithoutProg[1] == "detail" || argsWithoutProg[1] == "details") &&
 			len(porcelainOutput) > 0 {
@@ -65,22 +72,17 @@ func main() {
 
 			var str = string(porcelainOutput)
 			var icon = strings.Replace(str, "\n", "\n    ✏️", -1)
-			var text = strings.Replace(icon, "M", "", -1)
+			var text = strings.Replace(icon, "M", " ", -1)
+			var text2 = strings.Replace(text, "?", " ", -1)
 
-			fmt.Println("    ✏️", green(text[1:len(text)-8]))
+			fmt.Println("    ✏️", green(text2[1:len(text2)-8]))
 		}
-
-		uiprogress.Start()
 
 		if len(argsWithoutProg) > 1 &&
 			(argsWithoutProg[1] == "p" || argsWithoutProg[1] == "pull") {
 			if File.Contains(subfiles, ".git") {
 				go Pull(fmt.Sprintf("%s%s%s", path, "/", f.Name()), f.Name(), 21)
 			}
-		} else if len(porcelainOutput) == 0 {
-			fmt.Println(green("  "), blue(f.Name()))
-		} else {
-			fmt.Println(red("  "), yellow(f.Name()))
 		}
 	}
 
