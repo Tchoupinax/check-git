@@ -1,0 +1,42 @@
+name: tests
+
+on:
+  push:
+    branches:
+      - feature/**
+
+jobs:
+  perform-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [1.18, 1.19]
+    steps:
+      - uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.version }}
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v14.1
+        with:
+          files: |
+            go.*
+            **/*.go
+
+      - name: Go vet check
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: go vet ./...
+      
+      - name: Install ginkgo
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: go get github.com/onsi/ginkgo/v2/ginkgo
+
+      - name: Launch tests
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: go run github.com/onsi/ginkgo/v2/ginkgo -r --randomize-all --randomize-suites --race --trace -cover
