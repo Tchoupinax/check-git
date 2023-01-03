@@ -3,11 +3,11 @@ package utils
 import (
 	"fmt"
 	"io/fs"
-	"io/ioutil"
+	"os"
 	"strings"
 )
 
-func Contains(s []fs.FileInfo, str string) bool {
+func Contains(s []fs.DirEntry, str string) bool {
 	for _, v := range s {
 		if v.Name() == str {
 			return true
@@ -22,7 +22,7 @@ func LocalizeFolder(folderToSearch string, currentFolder string, level int16) st
 		return ""
 	}
 
-	files, _ := ioutil.ReadDir(currentFolder)
+	files, _ := os.ReadDir(currentFolder)
 
 	for _, f := range files {
 		if strings.HasPrefix(f.Name(), ".") {
