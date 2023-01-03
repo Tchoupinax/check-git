@@ -12,8 +12,10 @@ import (
 	"github.com/fatih/color"
 )
 
+// nolint go-golangci-lint
 var wg sync.WaitGroup
 
+// nolint go-golangci-lint
 func main() {
 	// Check if the version is asked by flag
 	cliCommandDisplayVersion(os.Args)
@@ -59,7 +61,9 @@ func main() {
 		cmd.Dir = fmt.Sprintf("%s%s%s", path, "/", f.Name())
 		porcelainOutput, _ := cmd.Output()
 
-		if len(commandLinesArgumentsWithoutProgram) == 1 || len(commandLinesArgumentsWithoutProgram) > 1 && (commandLinesArgumentsWithoutProgram[1] != "p" && commandLinesArgumentsWithoutProgram[1] != "pull") {
+		if len(commandLinesArgumentsWithoutProgram) == 1 ||
+			len(commandLinesArgumentsWithoutProgram) > 1 &&
+				(commandLinesArgumentsWithoutProgram[1] != "p" && commandLinesArgumentsWithoutProgram[1] != "pull") {
 			if len(porcelainOutput) == 0 {
 				fmt.Println(green("  "), blue(f.Name()))
 			} else {
