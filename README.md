@@ -16,7 +16,7 @@ ckg _folder_ details/pull
 ```
 
 ```
-npx nodemon -e go  --exec "go run *.go documents || exit 1"
+npx nodemon -e go  --exec "go run *.go Documents || exit 1"
 ---
 main
 ```

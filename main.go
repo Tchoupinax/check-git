@@ -84,11 +84,12 @@ func main() {
 
 		if len(commandLinesArgumentsWithoutProgram) > 1 && Utils.ContainsOneOfThese(commandLinesArgumentsWithoutProgram[1], []string{"p", "pull"}) {
 			if Utils.Contains(subfiles, ".git") {
-				go Pull(fmt.Sprintf("%s%s%s", path, "/", f.Name()), f.Name(), 21)
+				go Pull(fmt.Sprintf("%s%s%s", path, "/", f.Name()), f.Name(), 30)
 			}
 		}
 	}
 
 	wg.Wait()
+
 	fmt.Println()
 }

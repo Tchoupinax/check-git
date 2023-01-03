@@ -14,6 +14,7 @@ func Pull(path string, name string, nameSize int) {
 	defer wg.Done()
 
 	wg.Add(1)
+
 	cmd := exec.Command("git", "pull")
 	cmd.Dir = path
 
