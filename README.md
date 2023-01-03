@@ -6,7 +6,7 @@
 
 ```
 brew tap tchoupinax/brew
-brew install tchoupinax/ckg
+brew install tchoupinax/brew/ckg
 ```
 
 ## usage

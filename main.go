@@ -2,20 +2,20 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"strings"
 	"sync"
 
-	File "ckg/utils"
-	String "ckg/utils"
+	Utils "ckg/utils"
 
 	"github.com/fatih/color"
 )
 
+// nolint go-golangci-lint
 var wg sync.WaitGroup
 
+// nolint go-golangci-lint
 func main() {
 	// Check if the version is asked by flag
 	cliCommandDisplayVersion(os.Args)
@@ -24,7 +24,7 @@ func main() {
 	Usage(commandLinesArgumentsWithoutProgram)
 
 	dirname, _ := os.UserHomeDir()
-	foundPath := File.LocalizeFolder(commandLinesArgumentsWithoutProgram[0], dirname, 0)
+	foundPath := Utils.LocalizeFolder(commandLinesArgumentsWithoutProgram[0], dirname, 0)
 
 	if foundPath == "" {
 		fmt.Println("No path found")
@@ -44,16 +44,16 @@ func main() {
 	fmt.Println()
 	fmt.Println()
 
-	children, _ := ioutil.ReadDir(path)
+	children, _ := os.ReadDir(path)
 
 	for _, f := range children {
-		subfiles, err := ioutil.ReadDir(fmt.Sprintf("%s%s%s", path, "/", f.Name()))
+		subfiles, err := os.ReadDir(fmt.Sprintf("%s%s%s", path, "/", f.Name()))
 
 		if err != nil {
 			continue
 		}
 
-		if !File.Contains(subfiles, ".git") {
+		if !Utils.Contains(subfiles, ".git") {
 			continue
 		}
 
@@ -61,7 +61,9 @@ func main() {
 		cmd.Dir = fmt.Sprintf("%s%s%s", path, "/", f.Name())
 		porcelainOutput, _ := cmd.Output()
 
-		if len(commandLinesArgumentsWithoutProgram) == 1 || len(commandLinesArgumentsWithoutProgram) > 1 && (commandLinesArgumentsWithoutProgram[1] != "p" && commandLinesArgumentsWithoutProgram[1] != "pull") {
+		if len(commandLinesArgumentsWithoutProgram) == 1 ||
+			len(commandLinesArgumentsWithoutProgram) > 1 &&
+				(commandLinesArgumentsWithoutProgram[1] != "p" && commandLinesArgumentsWithoutProgram[1] != "pull") {
 			if len(porcelainOutput) == 0 {
 				fmt.Println(green("  "), blue(f.Name()))
 			} else {
@@ -70,7 +72,7 @@ func main() {
 		}
 
 		if len(commandLinesArgumentsWithoutProgram) > 1 &&
-			String.ContainsOneOfThese(commandLinesArgumentsWithoutProgram[1], []string{"d", "detail", "details"}) &&
+			Utils.ContainsOneOfThese(commandLinesArgumentsWithoutProgram[1], []string{"d", "detail", "details"}) &&
 			len(porcelainOutput) > 0 {
 			var str = string(porcelainOutput)
 			var icon = strings.Replace(str, "\n", "\n    ✏️", -1)
@@ -80,8 +82,8 @@ func main() {
 			fmt.Println("    ✏️", green(text2[1:len(text2)-8]))
 		}
 
-		if len(commandLinesArgumentsWithoutProgram) > 1 && String.ContainsOneOfThese(commandLinesArgumentsWithoutProgram[1], []string{"p", "pull"}) {
-			if File.Contains(subfiles, ".git") {
+		if len(commandLinesArgumentsWithoutProgram) > 1 && Utils.ContainsOneOfThese(commandLinesArgumentsWithoutProgram[1], []string{"p", "pull"}) {
+			if Utils.Contains(subfiles, ".git") {
 				go Pull(fmt.Sprintf("%s%s%s", path, "/", f.Name()), f.Name(), 21)
 			}
 		}

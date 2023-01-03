@@ -1,3 +1,9 @@
+lint:
+  golangci-lint run
+
+fmt:
+  gofmt -s
+
 test:
   ginkgo -r --randomize-all --randomize-suites --race ./...
 
