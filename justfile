@@ -1,3 +1,6 @@
+watch:
+  npx nodemon -e go  --exec "go run *.go perso || exit 1"
+
 lint:
   golangci-lint run
 
@@ -14,4 +17,4 @@ test-details:
   ginkgo -r --randomize-all --randomize-suites --race --trace --cover ./...
 
 coverage:
-  go tool cover -html=coverage.out
+  go tool cover -html=coverprofile.out

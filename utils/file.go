@@ -22,6 +22,10 @@ func LocalizeFolder(folderToSearch string, currentFolder string, level int16) st
 		return ""
 	}
 
+	if _, err := os.Stat(folderToSearch); !os.IsNotExist(err) {
+		return folderToSearch
+	}
+
 	files, _ := os.ReadDir(currentFolder)
 
 	for _, f := range files {

@@ -1,15 +1,13 @@
 package main
 
 import (
+	Utils "ckg/utils"
 	"fmt"
+	"github.com/fatih/color"
 	"os"
 	"os/exec"
 	"strings"
 	"sync"
-
-	Utils "ckg/utils"
-
-	"github.com/fatih/color"
 )
 
 // nolint go-golangci-lint
@@ -25,13 +23,19 @@ func main() {
 
 	dirname, _ := os.UserHomeDir()
 	foundPath := Utils.LocalizeFolder(commandLinesArgumentsWithoutProgram[0], dirname, 0)
+	fmt.Println(foundPath)
 
 	if foundPath == "" {
 		fmt.Println("No path found")
 		os.Exit(0)
 	}
 
-	path := fmt.Sprintf("%s%s%s", foundPath, "/", commandLinesArgumentsWithoutProgram[0])
+	var path string
+	if (foundPath == commandLinesArgumentsWithoutProgram[0]) {
+		path = foundPath
+	} else {
+		path = fmt.Sprintf("%s%s%s", foundPath, "/", commandLinesArgumentsWithoutProgram[0])
+	}
 
 	title := color.New(color.Bold, color.FgHiMagenta).SprintFunc()
 	green := color.New(color.Bold, color.FgHiGreen).SprintFunc()
@@ -90,6 +94,5 @@ func main() {
 	}
 
 	wg.Wait()
-
 	fmt.Println()
 }

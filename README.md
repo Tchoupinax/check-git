@@ -20,3 +20,11 @@ npx nodemon -e go  --exec "go run *.go Documents || exit 1"
 ---
 main
 ```
+
+## Development
+
+```
+go get .../.
+go get github.com/onsi/ginkgo/v2
+go install github.com/onsi/ginkgo/v2/ginkgo
+```
