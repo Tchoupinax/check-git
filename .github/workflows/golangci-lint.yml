@@ -10,21 +10,18 @@ permissions:
 
 jobs:
   golangci:
+    name: lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [1.18.9, 1.19.4]
+        version: [1.22]
     steps:
-      - uses: actions/setup-go@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.version }}
-
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
-
+          cache: false
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3.2.0
+        uses: golangci/golangci-lint-action@v4
         with:
-          version: v1.48.0
+          version: v1.54
