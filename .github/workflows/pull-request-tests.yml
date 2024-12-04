@@ -1,9 +1,7 @@
 name: tests
 
 on:
-  push:
-    branches:
-      - feature/**
+  pull_request:
 
 jobs:
   perform-tests:

@@ -3,49 +3,66 @@ linters-settings:
     line-length: 200
   gocyclo:
     min-complexity: 20
+  revive:
+    rules:
+      - name: dot-imports
+        disabled: true
+        #arguments:
+        #  - allowedPackages:
+        #      - "github.com/onsi/ginkgo"
+        #      - "github.com/onsi/ginkgo/v2"
+        #      - "github.com/onsi/gomega"
+
+  depguard:
+    rules:
+      prevent_unmaintained_packages:
+        list-mode: lax # allow unless explicitely denied
+        files:
+          - $all
+          - "!$test"
+        allow:
+          - $gostd
+        deny:
+          - pkg: io/ioutil
+            desc: "replaced by io and os packages since Go 1.16: https://tip.golang.org/doc/go1.16#ioutil"
 
 linters:
   enable:
-    - govet
-    - errcheck
-    - staticcheck
-    - unused
-    - gosimple
-    - structcheck
-    - varcheck
-    - ineffassign
-    - deadcode
-    - typecheck
-    - bodyclose
-    - revive
-    - stylecheck
-    - gosec
-    - unconvert
-    - dupl
-    - goconst
-    - gocyclo
-    - gocognit
-    - gofmt
-    - goimports
-    - depguard
-    - misspell
-    - lll
-    - unparam
-    - dogsled
     # - funlen
-    - gochecknoinits
     # - gocritic
     # - godox
+    # - golint
+    # - wsl
+    - bodyclose
+    - depguard
+    - dogsled
+    - dupl
+    - errcheck
+    - gochecknoglobals
+    - gochecknoinits
+    - gocognit
+    - goconst
+    - gocyclo
+    - gofmt
+    - goimports
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - lll
+    - misspell
     - nakedret
     - prealloc
+    - revive
+    - staticcheck
+    - stylecheck
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
     - whitespace
-    # - wsl
-    - exportloopref
-    # - golint
-    - gochecknoglobals
   disable:
     - noctx
-    - scopelint
     - errorlint
 
   disable-all: false
@@ -62,4 +79,4 @@ issues:
         - gochecknoglobals
         - dupl
   #include:
-    # - EXC0002
+  # - EXC0002
