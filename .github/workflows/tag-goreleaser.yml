@@ -27,16 +27,16 @@ jobs:
       - name: Compile the source
         uses: goreleaser/goreleaser-action@v6
         with:
-          version: latest
-          args: build --rm-dist --skip-validate
+          version: "~> v2"
+          args: "build --clean --skip-validate"
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:
-          distribution: goreleaser
+          distribution: "goreleaser"
           version: "~> v2"
-          args: release --clean
+          args: "release --clean"
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
