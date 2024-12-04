@@ -3,11 +3,12 @@ package main
 import (
 	Utils "ckg/utils"
 	"fmt"
-	"github.com/fatih/color"
 	"os"
 	"os/exec"
 	"strings"
 	"sync"
+
+	"github.com/fatih/color"
 )
 
 // nolint go-golangci-lint
