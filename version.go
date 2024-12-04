@@ -7,8 +7,8 @@ import (
 	"github.com/fatih/color"
 )
 
-const Version string = "0.2.1"
-const BuildDate string = "2024-05-13"
+const Version string = "0.2.2"
+const BuildDate string = "2024-12-04"
 
 func StringInSlice(a string, list []string) bool {
 	for _, b := range list {
