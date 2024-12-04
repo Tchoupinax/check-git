@@ -3,7 +3,7 @@ name: Releases publication
 on:
   push:
     tags:
-      - '*'
+      - "*"
 
 jobs:
   goreleaser:
