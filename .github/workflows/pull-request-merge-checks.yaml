@@ -1,10 +1,11 @@
-name: Merge checks
+name: Labelling
 on:
   pull_request:
     types: [ready_for_review, reopened, synchronize, labeled, unlabeled]
 
 jobs:
   check-labels:
+    name: Update labels
     runs-on: ubuntu-latest
     permissions:
       checks: write
