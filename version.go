@@ -7,8 +7,11 @@ import (
 	"github.com/fatih/color"
 )
 
-const Version string = "0.2.5"
-const BuildDate string = "2024-12-04"
+var (
+	version   string
+	buildDate string
+	commit    string
+)
 
 func StringInSlice(a string, list []string) bool {
 	for _, b := range list {
@@ -27,10 +30,11 @@ func cliCommandDisplayVersion(args []string) {
 		italic := color.New(color.Italic).SprintFunc()
 
 		fmt.Println()
-		fmt.Println(bold("⚡️ Git branch"))
+		fmt.Println(bold("⚡️ Check git"))
 		fmt.Println()
-		fmt.Println("build date: ", bold(BuildDate))
-		fmt.Println("version:         ", bold(Version))
+		fmt.Println("build date: ", bold(buildDate))
+		fmt.Println("version:    ", bold(version))
+		fmt.Println("commit:     ", bold(commit))
 		fmt.Println()
 		fmt.Println(italic("Need help?"))
 		fmt.Println(italic("https://github.com/Tchoupinax/check-git/issues"))
