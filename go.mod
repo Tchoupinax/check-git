@@ -2,8 +2,6 @@ module ckg
 
 go 1.24.5
 
-toolchain go1.24.5
-
 require (
 	github.com/fatih/color v1.18.0
 	github.com/onsi/ginkgo/v2 v2.23.4
@@ -25,7 +23,6 @@ require (
 	golang.org/x/sys v0.33.0 // indirect
 	golang.org/x/text v0.26.0 // indirect
 	golang.org/x/tools v0.33.0 // indirect
-	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
