@@ -20,7 +20,7 @@ func Pull(path string, name string, nameSize int) {
 
 	answer, _ := cmd.Output()
 
-	message := strings.Replace(string(answer), "\n", "", -1)
+	message := strings.ReplaceAll(string(answer), "\n", "")
 
 	red := color.New(color.Bold, color.FgHiRed).SprintFunc()
 	green := color.New(color.Bold, color.FgHiGreen).SprintFunc()
