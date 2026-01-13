@@ -4,7 +4,7 @@ go 1.24.5
 
 require (
 	github.com/fatih/color v1.18.0
-	github.com/onsi/ginkgo/v2 v2.27.4
+	github.com/onsi/ginkgo/v2 v2.27.5
 	github.com/onsi/gomega v1.39.0
 )
 
