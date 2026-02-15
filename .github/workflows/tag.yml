@@ -22,7 +22,7 @@ jobs:
     needs: [release]
     steps:
       - name: Update Brew registry 👊
-        uses: tchoupinax/repo-config/shared-actions/dx/update-brew-registry@019d3c58a09a0bc8f52cde9807740ce8e3cf39d7
+        uses: tchoupinax/repo-config/shared-actions/dx/update-brew-registry@a31e30afc835847e45f0ea86211a337cddd3b723
         with:
           patToken: ${{ secrets.BREW_COMITTER_PAT }}
           formulaPath: gb.rb
