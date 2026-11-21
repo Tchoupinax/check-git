@@ -13,22 +13,30 @@ import (
 func Pull(path string, name string, nameSize int) {
 	defer wg.Done()
 
-	wg.Add(1)
-
 	cmd := exec.Command("git", "pull")
 	cmd.Dir = path
 
-	answer, _ := cmd.Output()
-
-	message := strings.ReplaceAll(string(answer), "\n", "")
+	answer, err := cmd.CombinedOutput()
+	output := strings.TrimSpace(string(answer))
 
 	red := color.New(color.Bold, color.FgHiRed).SprintFunc()
 	green := color.New(color.Bold, color.FgHiGreen).SprintFunc()
 	blue := color.New(color.Bold, color.FgHiBlue).SprintFunc()
 
-	if len(message) == 0 {
-		message = red("Failed")
+	var message string
+	if err != nil {
+		if output != "" {
+			message = red(output)
+		} else {
+			message = red(err.Error())
+		}
+	} else {
+		if output == "" {
+			message = green("Already up to date.")
+		} else {
+			message = green(output)
+		}
 	}
 
-	fmt.Println(blue(String.AddSpaceToEnd(name, nameSize)), green(message))
+	fmt.Println(blue(String.AddSpaceToEnd(name, nameSize)), message)
 }
