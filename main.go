@@ -64,7 +64,11 @@ func main() {
 
 		cmd := exec.Command("git", "status", "--porcelain")
 		cmd.Dir = fmt.Sprintf("%s%s%s", path, "/", f.Name())
-		porcelainOutput, _ := cmd.Output()
+		porcelainOutput, err := cmd.CombinedOutput()
+		if err != nil {
+			fmt.Println(red("  \uf00d"), yellow(f.Name()), red(string(porcelainOutput)))
+			continue
+		}
 
 		if len(commandLinesArgumentsWithoutProgram) == 1 ||
 			len(commandLinesArgumentsWithoutProgram) > 1 &&
@@ -79,16 +83,18 @@ func main() {
 		if len(commandLinesArgumentsWithoutProgram) > 1 &&
 			Utils.ContainsOneOfThese(commandLinesArgumentsWithoutProgram[1], []string{"d", "detail", "details"}) &&
 			len(porcelainOutput) > 0 {
-			var str = string(porcelainOutput)
-			var icon = strings.Replace(str, "\n", "\n    ✏️", -1)
-			var text = strings.Replace(icon, " M", "  ", -1)
-			var text2 = strings.Replace(text, "?", " ", -1)
-
-			fmt.Println("    ✏️", green(text2[1:len(text2)-8]))
+			for _, line := range strings.Split(string(porcelainOutput), "\n") {
+				line = strings.TrimSpace(line)
+				if line == "" {
+					continue
+				}
+				fmt.Printf("    ✏️  %s\n", green(line))
+			}
 		}
 
 		if len(commandLinesArgumentsWithoutProgram) > 1 && Utils.ContainsOneOfThese(commandLinesArgumentsWithoutProgram[1], []string{"p", "pull"}) {
 			if Utils.Contains(subfiles, ".git") {
+				wg.Add(1)
 				go Pull(fmt.Sprintf("%s%s%s", path, "/", f.Name()), f.Name(), 30)
 			}
 		}
