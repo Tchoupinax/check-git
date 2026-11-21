@@ -3,29 +3,6 @@
   <em>Your folder of repos, one glance.</em>
 </p>
 
-<<<<<<< HEAD
-**One command. Every repo. Green or red.**
-
-`ckg` scans a folder of git projects and tells you which ones are clean, which ones still have dirt on them, and optionally pulls them all without opening each directory by hand.
-
-```
-ckg ~/code
-```
-
-You get a wall of green checkmarks for repos with nothing to commit, and yellow names where `git status` would complain. No clicking through twenty tabs.
-
-## Why bother
-
-| You want | `ckg` does |
-|----------|------------|
-| Health check across a monorepo folder | `ckg Projects` |
-| See what changed | `ckg Projects details` |
-| Update everything | `ckg Projects pull` |
-
-## Install
-
-Homebrew:
-=======
 <p align="center">
   Stop opening twenty terminals.<br>
   <code>ckg</code> walks a directory, finds every <code>.git</code>, and shows clean vs dirty in color — then <strong>details</strong> or <strong>pull</strong> when you are ready.
@@ -67,26 +44,12 @@ One folder. Every nested repo. No scripts to maintain.
 ## Install
 
 **macOS (Homebrew)**
->>>>>>> 07671e1 (Polish README for onboarding.)
 
 ```bash
 brew tap tchoupinax/brew
 brew install tchoupinax/brew/ckg
 ```
 
-<<<<<<< HEAD
-## Usage
-
-```bash
-ckg <folder>              # clean / dirty per repo
-ckg <folder> details      # porcelain lines for dirty repos
-ckg <folder> pull         # git pull in parallel
-```
-
-`<folder>` can be a path, or a name searched under your home directory (up to a few levels deep).
-
-Examples:
-=======
 Then run:
 
 ```bash
@@ -94,15 +57,10 @@ ckg Code
 ```
 
 ## Examples
->>>>>>> 07671e1 (Polish README for onboarding.)
 
 ```bash
 ckg Documents
 ckg ~/work/oss details
-<<<<<<< HEAD
-ckg Code pull
-```
-=======
 ckg Projects pull
 ```
 
@@ -112,7 +70,6 @@ ckg Projects pull
 - **Readable** — green / red / yellow output, optional change lines in `details`
 - **Parallel pulls** — one command instead of a shell loop
 - **Small** — single Go binary, no runtime to install
->>>>>>> 07671e1 (Polish README for onboarding.)
 
 ## Development
 
@@ -120,12 +77,6 @@ ckg Projects pull
 go get ./...
 go install github.com/onsi/ginkgo/v2/ginkgo@latest
 ginkgo -r ./...
-<<<<<<< HEAD
-just lint   # golangci-lint
-```
-
-Issues and ideas: https://github.com/Tchoupinax/check-git/issues
-=======
 just lint
 ```
 
@@ -135,4 +86,3 @@ just lint
   Made for people who own more than one git clone.<br>
   <a href="https://github.com/Tchoupinax/check-git/issues">Ideas & issues welcome</a>
 </p>
->>>>>>> 07671e1 (Polish README for onboarding.)
